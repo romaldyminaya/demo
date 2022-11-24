@@ -2,14 +2,17 @@
 
 namespace App\Filament\Resources\Blog;
 
-use App\Filament\Resources\Blog\AuthorResource\Pages;
-use App\Models\Blog\Author;
 use Filament\Forms;
-use Filament\Notifications\Notification;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Blog\Author;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
+use Filament\Notifications\Notification;
+use Filament\Forms\Components\DatePicker;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Blog\AuthorResource\Pages;
 
 class AuthorResource extends Resource
 {
@@ -82,7 +85,22 @@ class AuthorResource extends Resource
 
             ])
             ->filters([
-                //
+                Filter::make('created')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
