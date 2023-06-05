@@ -18,8 +18,11 @@
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
+        "laravel/octane": "^1.4",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "nyholm/psr7": "^1.5",
+        "spiral/roadrunner": "v2.0",
         "squirephp/countries-en": "^3.3",
         "squirephp/currencies-en": "^3.3"
     },

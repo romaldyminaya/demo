@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Shop\CustomerResource\Pages;
 
-use App\Filament\Resources\Shop\CustomerResource;
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\Shop\CustomerResource;
 
 class ListCustomers extends ListRecords
 {
@@ -14,6 +15,16 @@ class ListCustomers extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Action::make('submit')
+                ->label(__('Save'))
+                ->action(fn () =>  $this->submit())
+                ->keyBindings(['command+s', 'ctrl+s'])
+                ->disabled(fn () => false),
         ];
+    }
+
+    public function submit(): void
+    {
+        dd('test');
     }
 }
