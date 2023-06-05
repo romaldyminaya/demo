@@ -91,6 +91,19 @@ class SettingsPage extends Page implements HasForms, HasFormActionsContract
                                 ])->columnSpan(1)
                         ])->columns(2),
                     ]),
+                Step::make(__('labels.company'))
+                    ->id(1.2)
+                    ->schema([
+                        Card::make([
+                            Select::make('testSelect')
+                                ->options([
+                                    1 => 'uno',
+                                    2 => 'dos',
+                                    3 => 'tres',
+                                ])->preload()
+                                ->searchable(),
+                        ])->columns(2),
+                    ]),
                 Step::make(__('labels.taxes'))
                     ->id(3)
                     ->schema([
